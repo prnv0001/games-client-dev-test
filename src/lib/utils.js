@@ -34,6 +34,7 @@ export const drawShapes = {
     rectangle.interactive = true;
     rectangle.hitArea = new PIXI.Rectangle(0, 0, 150, 64);
     rectangle.click = function (mouseData) {
+      // deletes the shape on click
       app.stage.removeChild(rectangle);
     };
   },
@@ -51,6 +52,7 @@ export const drawShapes = {
     square.interactive = true;
     square.hitArea = new PIXI.Rectangle(0, 0, 64, 64);
     square.click = function (mouseData) {
+      // deletes the shape on click
       app.stage.removeChild(square);
     };
   },
@@ -68,6 +70,7 @@ export const drawShapes = {
     circle.interactive = true;
     circle.hitArea = new PIXI.Circle(0, 0, 32);
     circle.click = function (mouseData) {
+      // deletes the shape on click
       app.stage.removeChild(circle);
     };
   },
@@ -85,6 +88,7 @@ export const drawShapes = {
     triangle.interactive = true;
     triangle.hitArea = new PIXI.Polygon([-32, 64, 32, 64, 0, 0]);
     triangle.click = function (mouseData) {
+      // deletes the shape on click
       app.stage.removeChild(triangle);
     };
   },
@@ -102,6 +106,7 @@ export const drawShapes = {
     ellipse.interactive = true;
     ellipse.hitArea = new PIXI.Ellipse(0, 0, 50, 20);
     ellipse.click = function (mouseData) {
+      // deletes the shape on click
       app.stage.removeChild(ellipse);
     };
   },

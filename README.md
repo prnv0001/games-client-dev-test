@@ -1,5 +1,5 @@
 <ol>
-  <li>Clone this repository</li>
+  <li>Clone this repository using <code>git clone</code></li>
   <br>
   <li>
     <code>npm i</code>

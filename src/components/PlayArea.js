@@ -25,6 +25,7 @@ export default class DrawingArea extends React.Component {
     // this function controls the updating of frequency
     this.setState({ frequency: updatedFrequency });
   };
+
   // runs on mouting of application
   componentDidMount() {
     // appends canvas to the app
@@ -32,6 +33,7 @@ export default class DrawingArea extends React.Component {
       app.view,
       this.canvasRef.current.nextSibling
     );
+
     // for automatic falling of shapes
     this.interval = setInterval(() => {
       for (let i = 0; i < this.state.frequency; i++) {
@@ -40,6 +42,7 @@ export default class DrawingArea extends React.Component {
         drawShapes[getRandomShape()](x, y, this.state.gravity);
       }
     }, 1000);
+
     // listens for click event on canvas
     app.view.addEventListener("mousedown", this.mouseDown);
   }
@@ -66,6 +69,7 @@ export default class DrawingArea extends React.Component {
 
   mouseDown = (event) => {
     // this function runs whenever mouse is clicked inside the canvas
+
     const canvas = app.view;
     const { gravity } = this.state;
     let rect = canvas.getBoundingClientRect();
@@ -80,9 +84,9 @@ export default class DrawingArea extends React.Component {
         <div ref={this.canvasRef}></div>
         <Controls
           gravity={this.state.gravity}
-          updateFrequency={this.updateFrequency}
           updateGravity={this.updateGravity}
           frequency={this.state.frequency}
+          updateFrequency={this.updateFrequency}
         />
       </>
     );

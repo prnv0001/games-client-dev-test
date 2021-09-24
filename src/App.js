@@ -1,6 +1,5 @@
 import React from "react";
 import PlayArea from "./components/PlayArea";
-
 import "./styles/App.css";
 
 export default class App extends React.Component {
