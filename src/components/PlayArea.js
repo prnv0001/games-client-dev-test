@@ -1,0 +1,90 @@
+import React from "react";
+import Controls from "./Controls";
+import { getRandomShape, drawShapes, app, CANVAS_WIDTH } from "../lib/utils";
+
+export default class DrawingArea extends React.Component {
+  constructor(props) {
+    super(props);
+    // defining state logic
+    this.state = {
+      gravity: 10,
+      frequency: 1,
+    };
+
+    this.canvasRef = React.createRef();
+    // eslint-disable-next-line no-unused-expressions
+    this.interval; // reference to be used for setInterval
+  }
+
+  updateGravity = (updatedGravity) => {
+    // this function controls the updating of gravity
+    this.setState({ gravity: updatedGravity });
+  };
+
+  updateFrequency = (updatedFrequency) => {
+    // this function controls the updating of frequency
+    this.setState({ frequency: updatedFrequency });
+  };
+  // runs on mouting of application
+  componentDidMount() {
+    // appends canvas to the app
+    this.canvasRef.current.parentNode.insertBefore(
+      app.view,
+      this.canvasRef.current.nextSibling
+    );
+    // for automatic falling of shapes
+    this.interval = setInterval(() => {
+      for (let i = 0; i < this.state.frequency; i++) {
+        const y = -100;
+        const x = Math.floor(Math.random() * CANVAS_WIDTH);
+        drawShapes[getRandomShape()](x, y, this.state.gravity);
+      }
+    }, 1000);
+    // listens for click event on canvas
+    app.view.addEventListener("mousedown", this.mouseDown);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { gravity, frequency } = prevState;
+    if (gravity !== this.state.gravity || frequency !== this.state.frequency) {
+      // runs every time gravity or frequency is updated
+      this.interval = setInterval(() => {
+        for (let i = 0; i < this.state.frequency; i++) {
+          const y = -100;
+          const x = Math.floor(Math.random() * CANVAS_WIDTH);
+          drawShapes[getRandomShape()](x, y);
+        }
+      }, 1000);
+    }
+  }
+
+  componentWillUnmount() {
+    // runs on unmounting of app
+    clearInterval(this.interval);
+    app.view.removeEventListener("mousedown", this.mouseDown);
+  }
+
+  mouseDown = (event) => {
+    // this function runs whenever mouse is clicked inside the canvas
+    const canvas = app.view;
+    const { gravity } = this.state;
+    let rect = canvas.getBoundingClientRect();
+    let x = event.clientX - rect.left;
+    let y = event.clientY - rect.top;
+    drawShapes[getRandomShape()](x, y, gravity);
+  };
+
+  render() {
+    return (
+      <>
+        <div ref={this.canvasRef}></div>
+        <Controls
+          gravity={this.state.gravity}
+          updateFrequency={this.updateFrequency}
+          updateGravity={this.updateGravity}
+          frequency={this.state.frequency}
+        />
+      </>
+    );
+  }
+}
