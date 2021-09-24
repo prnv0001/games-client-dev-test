@@ -5,10 +5,10 @@ import { getRandomShape, drawShapes, app, CANVAS_WIDTH } from "../lib/utils";
 export default class DrawingArea extends React.Component {
   constructor(props) {
     super(props);
-    // defining state logic
+    // defining states
     this.state = {
-      gravity: 10,
-      frequency: 1,
+      gravity: 10, // controls the speed of falling shapes
+      frequency: 1, // controls the no of shapes being generated per second
     };
 
     this.canvasRef = React.createRef();
@@ -26,7 +26,7 @@ export default class DrawingArea extends React.Component {
     this.setState({ frequency: updatedFrequency });
   };
 
-  // runs on mouting of application
+  // runs on mounting of application
   componentDidMount() {
     // appends canvas to the app
     this.canvasRef.current.parentNode.insertBefore(
@@ -35,13 +35,7 @@ export default class DrawingArea extends React.Component {
     );
 
     // for automatic falling of shapes
-    this.interval = setInterval(() => {
-      for (let i = 0; i < this.state.frequency; i++) {
-        const y = -100;
-        const x = Math.floor(Math.random() * CANVAS_WIDTH);
-        drawShapes[getRandomShape()](x, y, this.state.gravity);
-      }
-    }, 1000);
+    this.automaticFallingShapes();
 
     // listens for click event on canvas
     app.view.addEventListener("mousedown", this.mouseDown);
@@ -51,15 +45,22 @@ export default class DrawingArea extends React.Component {
     const { gravity, frequency } = prevState;
     if (gravity !== this.state.gravity || frequency !== this.state.frequency) {
       // runs every time gravity or frequency is updated
-      this.interval = setInterval(() => {
-        for (let i = 0; i < this.state.frequency; i++) {
-          const y = -100;
-          const x = Math.floor(Math.random() * CANVAS_WIDTH);
-          drawShapes[getRandomShape()](x, y);
-        }
-      }, 1000);
+      clearInterval(this.interval);
+      // for automatic falling of shapes
+      this.automaticFallingShapes();
     }
   }
+
+  // function to generate shapes falling automatically
+  automaticFallingShapes = () => {
+    this.interval = setInterval(() => {
+      for (let i = 0; i < this.state.frequency; i++) {
+        const y = -100;
+        const x = Math.floor(Math.random() * CANVAS_WIDTH);
+        drawShapes[getRandomShape()](x, y, this.state.gravity);
+      }
+    }, 1000);
+  };
 
   componentWillUnmount() {
     // runs on unmounting of app

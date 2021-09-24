@@ -17,6 +17,7 @@ export default class Controls extends React.Component {
             -1
           </button>
           <p>GRAVITY: {gravity}</p>
+          <p className="desktop-only">(Speed Indicator)</p>
         </div>
         <div className="control-shapes">
           <button type="button" onClick={() => updateFrequency(frequency + 1)}>
@@ -31,6 +32,7 @@ export default class Controls extends React.Component {
             -1
           </button>
           <p>FREQUENCY: {frequency}</p>
+          <p className="desktop-only">(No of shapes per second)</p>
         </div>
       </div>
     );

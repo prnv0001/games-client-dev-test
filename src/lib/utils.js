@@ -20,6 +20,7 @@ export const app = new PIXI.Application({
 });
 // this object contains all functions to draw different shapes
 export const drawShapes = {
+  // function for drawing rectangle
   drawRectangle: function (x, y, gravity) {
     const rectangle = new Graphics();
     rectangle.beginFill(0xffff00);
@@ -38,6 +39,7 @@ export const drawShapes = {
       app.stage.removeChild(rectangle);
     };
   },
+  // function for drawing square
   drawSquare: function (x, y, gravity) {
     const square = new Graphics();
     square.beginFill(0xff6347);
@@ -56,6 +58,7 @@ export const drawShapes = {
       app.stage.removeChild(square);
     };
   },
+  // function for drawing circle
   drawCircle: function (x, y, gravity) {
     const circle = new Graphics();
     circle.beginFill(0xff00ff);
@@ -74,6 +77,7 @@ export const drawShapes = {
       app.stage.removeChild(circle);
     };
   },
+  // function for drawing triangle
   drawTriangle: function (x, y, gravity) {
     const triangle = new Graphics();
     triangle.beginFill(0x0000ff);
@@ -92,6 +96,7 @@ export const drawShapes = {
       app.stage.removeChild(triangle);
     };
   },
+  // function for drawing ellipse
   drawEllipse: function (x, y, gravity) {
     const ellipse = new Graphics();
     ellipse.beginFill(0xffff00);

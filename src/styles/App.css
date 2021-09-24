@@ -59,3 +59,9 @@ canvas {
   letter-spacing: 2px;
   margin-left: 5px;
 }
+
+@media screen and (max-width: 767px) {
+  .controls .desktop-only {
+    display: none;
+  }
+}
